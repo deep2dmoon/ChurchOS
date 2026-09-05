@@ -22,10 +22,10 @@ jobs:
           dotnet-version: "10.0.x"
         
       - name: install dependencies
-        run: dotnet restore --no-build
+        run: dotnet restore
 
       - name: build 
-        run: dotnet build 
+        run: dotnet build --no-restore 
 
 
       
