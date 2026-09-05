@@ -10,7 +10,7 @@ namespace htmos.controller;
 
 [ApiController]
 [Route("api/")]
-public class AuthController(AuthService authService, IUserRepository userRepository, SmsService smsService) : ControllerBase
+public class AuthController(AuthService authService, IUserRepository userRepository) : ControllerBase
 {
     [HttpPost("member/new")]
     [EnableRateLimiting("member/new")]
