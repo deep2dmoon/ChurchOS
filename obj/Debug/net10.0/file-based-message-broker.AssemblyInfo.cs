@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("file-based-message-broker")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+af34b05ac5ed028d8447c28ccd2bf1340f68f85a")]
 [assembly: System.Reflection.AssemblyProductAttribute("file-based-message-broker")]
 [assembly: System.Reflection.AssemblyTitleAttribute("file-based-message-broker")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

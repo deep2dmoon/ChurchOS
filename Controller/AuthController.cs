@@ -17,8 +17,7 @@ public class AuthController(AuthService authService, IUserRepository userReposit
     public async Task<IActionResult> Register(NewUser user)
     {
         var result = await userRepository.RegisterUserAsync(user);
-        object response = await smsService.SendSMS();
-        return Ok(response);
+        return Ok(result);
     }
 
     [HttpPost("member/login")]
