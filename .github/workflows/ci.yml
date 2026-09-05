@@ -1,0 +1,54 @@
+# continue integration for the message producer 
+
+name: CI for message-producer
+
+on:
+  workflow_dispatch
+
+env:
+  WEB_APP_NAME: "A-Random-Web-App-Name"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+
+      - name: setup runtime
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+        
+      - name: install dependencies
+        run: dotnet restore --no-build
+
+      - name: build 
+        run: dotnet build 
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      run: dotnet publish ./publish
+
+  deploy:
+    needs: publish
+    runs-on: ubuntu-latest
+
+    steps:
+      uses: azure-webapps-deploy@v4
+      with:
+        app-name: ${{ env.WEB_APP_NAME }}
+        publish-profile-secret: ${{ secret.PUBLISH_PROFILE_SECRET }}
+        package: ./publish
+ 
+
+      
+    
+
+
+  
+
