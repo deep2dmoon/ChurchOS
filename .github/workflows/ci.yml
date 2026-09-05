@@ -1,12 +1,12 @@
 # continue integration for the message producer 
 
-name: CI for message-producer
+name: CI for JobOS
 
 on:
   workflow_dispatch
 
 env:
-  WEB_APP_NAME: "A-Random-Web-App-Name"
+  WEB_APP_NAME: "ChurchOs"
 
 jobs:
   build:
@@ -27,24 +27,6 @@ jobs:
       - name: build 
         run: dotnet build 
 
-  publish:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      run: dotnet publish ./publish
-
-  deploy:
-    needs: publish
-    runs-on: ubuntu-latest
-
-    steps:
-      uses: azure-webapps-deploy@v4
-      with:
-        app-name: ${{ env.WEB_APP_NAME }}
-        publish-profile-secret: ${{ secret.PUBLISH_PROFILE_SECRET }}
-        package: ./publish
- 
 
       
     
