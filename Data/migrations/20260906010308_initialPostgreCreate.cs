@@ -1,13 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace file_based_message_broker.data.migrations
+namespace htmos.data.migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class initialPostgreCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,9 +17,9 @@ namespace file_based_message_broker.data.migrations
                 name: "Branches",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    ID = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -29,9 +30,9 @@ namespace file_based_message_broker.data.migrations
                 name: "Permissions",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    ID = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -42,9 +43,9 @@ namespace file_based_message_broker.data.migrations
                 name: "Roles",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    ID = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -55,11 +56,11 @@ namespace file_based_message_broker.data.migrations
                 name: "Departments",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Leader = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BranchID = table.Column<int>(type: "int", nullable: true)
+                    ID = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Leader = table.Column<string>(type: "text", nullable: false),
+                    BranchID = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -72,36 +73,11 @@ namespace file_based_message_broker.data.migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Members",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BranchID = table.Column<int>(type: "int", nullable: false),
-                    BranchID1 = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Members", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_Members_Branches_BranchID",
-                        column: x => x.BranchID,
-                        principalTable: "Branches",
-                        principalColumn: "ID");
-                    table.ForeignKey(
-                        name: "FK_Members_Branches_BranchID1",
-                        column: x => x.BranchID1,
-                        principalTable: "Branches",
-                        principalColumn: "ID");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "RolePermissions",
                 columns: table => new
                 {
-                    RoleID = table.Column<int>(type: "int", nullable: false),
-                    PermissionID = table.Column<int>(type: "int", nullable: false)
+                    RoleID = table.Column<int>(type: "integer", nullable: false),
+                    PermissionID = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -124,23 +100,17 @@ namespace file_based_message_broker.data.migrations
                 name: "Users",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RoleID = table.Column<int>(type: "int", nullable: false),
-                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DepartmentID = table.Column<int>(type: "int", nullable: true)
+                    ID = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    Password = table.Column<string>(type: "text", nullable: false),
+                    RoleID = table.Column<int>(type: "integer", nullable: false),
+                    Phone = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_Users_Departments_DepartmentID",
-                        column: x => x.DepartmentID,
-                        principalTable: "Departments",
-                        principalColumn: "ID");
                     table.ForeignKey(
                         name: "FK_Users_Roles_RoleID",
                         column: x => x.RoleID,
@@ -150,13 +120,38 @@ namespace file_based_message_broker.data.migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Workers",
+                columns: table => new
+                {
+                    DepartmentID = table.Column<int>(type: "integer", nullable: false),
+                    MemberID = table.Column<int>(type: "integer", nullable: false),
+                    ID = table.Column<int>(type: "integer", nullable: false),
+                    BranchID = table.Column<int>(type: "integer", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Workers", x => new { x.DepartmentID, x.MemberID });
+                    table.ForeignKey(
+                        name: "FK_Workers_Branches_BranchID",
+                        column: x => x.BranchID,
+                        principalTable: "Branches",
+                        principalColumn: "ID");
+                    table.ForeignKey(
+                        name: "FK_Workers_Departments_DepartmentID",
+                        column: x => x.DepartmentID,
+                        principalTable: "Departments",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "BranchAdmins",
                 columns: table => new
                 {
-                    UserID = table.Column<int>(type: "int", nullable: false),
-                    BranchID = table.Column<int>(type: "int", nullable: false),
-                    ID = table.Column<int>(type: "int", nullable: false),
-                    BranchID1 = table.Column<int>(type: "int", nullable: true)
+                    UserID = table.Column<int>(type: "integer", nullable: false),
+                    BranchID = table.Column<int>(type: "integer", nullable: false),
+                    ID = table.Column<int>(type: "integer", nullable: false),
+                    BranchID1 = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -176,6 +171,40 @@ namespace file_based_message_broker.data.migrations
                         column: x => x.UserID,
                         principalTable: "Users",
                         principalColumn: "ID");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Members",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    BranchID = table.Column<int>(type: "integer", nullable: false),
+                    Phone = table.Column<string>(type: "text", nullable: false),
+                    IsFirstTimer = table.Column<bool>(type: "boolean", nullable: false),
+                    BranchID1 = table.Column<int>(type: "integer", nullable: true),
+                    WorkerDepartmentID = table.Column<int>(type: "integer", nullable: true),
+                    WorkerMemberID = table.Column<int>(type: "integer", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Members", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Members_Branches_BranchID",
+                        column: x => x.BranchID,
+                        principalTable: "Branches",
+                        principalColumn: "ID");
+                    table.ForeignKey(
+                        name: "FK_Members_Branches_BranchID1",
+                        column: x => x.BranchID1,
+                        principalTable: "Branches",
+                        principalColumn: "ID");
+                    table.ForeignKey(
+                        name: "FK_Members_Workers_WorkerDepartmentID_WorkerMemberID",
+                        columns: x => new { x.WorkerDepartmentID, x.WorkerMemberID },
+                        principalTable: "Workers",
+                        principalColumns: new[] { "DepartmentID", "MemberID" });
                 });
 
             migrationBuilder.InsertData(
@@ -218,15 +247,14 @@ namespace file_based_message_broker.data.migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "ID", "DepartmentID", "Email", "Name", "Password", "Phone", "RoleID" },
-                values: new object[] { 1, null, "htm@hq.go", "Harvest Tabernacle Ministry", "pass-01", "", 1 });
+                columns: new[] { "ID", "Email", "Name", "Password", "Phone", "RoleID" },
+                values: new object[] { 1, "htm@hq.go", "Harvest Tabernacle Ministry", "pass-01", "", 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_BranchAdmins_BranchID1",
                 table: "BranchAdmins",
                 column: "BranchID1",
-                unique: true,
-                filter: "[BranchID1] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_BranchAdmins_UserID",
@@ -249,19 +277,24 @@ namespace file_based_message_broker.data.migrations
                 column: "BranchID1");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Members_WorkerDepartmentID_WorkerMemberID",
+                table: "Members",
+                columns: new[] { "WorkerDepartmentID", "WorkerMemberID" });
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RolePermissions_PermissionID",
                 table: "RolePermissions",
                 column: "PermissionID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_DepartmentID",
-                table: "Users",
-                column: "DepartmentID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Users_RoleID",
                 table: "Users",
                 column: "RoleID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Workers_BranchID",
+                table: "Workers",
+                column: "BranchID");
         }
 
         /// <inheritdoc />
@@ -280,13 +313,16 @@ namespace file_based_message_broker.data.migrations
                 name: "Users");
 
             migrationBuilder.DropTable(
+                name: "Workers");
+
+            migrationBuilder.DropTable(
                 name: "Permissions");
 
             migrationBuilder.DropTable(
-                name: "Departments");
+                name: "Roles");
 
             migrationBuilder.DropTable(
-                name: "Roles");
+                name: "Departments");
 
             migrationBuilder.DropTable(
                 name: "Branches");

@@ -7,8 +7,8 @@ using htmos.data;
 using htmos.services;
 using htmos.services.repository;
 using htmos.services.workers;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder();
 
@@ -25,6 +25,8 @@ builder.Services.AddControllers().AddJsonOptions(option =>
     option.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
 });
 
+builder.Services.AddDbContextPool<DatabaseContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("ConnString")));
 
 builder.Services.AddRateLimiter((option) =>
 {
@@ -66,7 +68,6 @@ builder.Services.AddAuthorizationBuilder()
     .AddPolicy("CanWriteBranch", policy => policy.RequireClaim("Permission", "Branch.Write"))
     .AddPolicy("CanRead", policy => policy.RequireClaim("Permission", "Read"));
 
-builder.Services.AddDbContext<DatabaseContext>((option) => option.UseSqlServer(builder.Configuration.GetConnectionString("ConnString")));
 
 
 
