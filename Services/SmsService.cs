@@ -41,13 +41,13 @@ public class SmsService(HttpClient httpClient, IConfiguration configuration)
                 to = recipients,
                 from = configuration.GetValue<string>("termiiSender:ID"),
                 sms = Annountment,
-                channel = "dnd",
+                channel = "generic",
                 type = "plain"
             };
             var response = await httpClient.PostAsJsonAsync($"{configuration.GetValue<string>("termiiBase:url")}api/sms/send/bulk", data);
-            string result = await response.Content.ReadAsStringAsync();
             response.EnsureSuccessStatusCode();
-            return new { result };
+            string result = await response.Content.ReadAsStringAsync();
+            return new { result = JsonSerializer.Deserialize<object>(result) };
 
         }
         catch (System.Exception)
