@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("htmos")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c57daf4e6eba07e0d2b09e9467900ad53ae82616")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0685c69eb654677b0611cb9ccb6c6928be1c5aaf")]
 [assembly: System.Reflection.AssemblyProductAttribute("htmos")]
 [assembly: System.Reflection.AssemblyTitleAttribute("htmos")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

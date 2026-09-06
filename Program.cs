@@ -20,13 +20,17 @@ builder.Services.AddScoped<SmsService>();
 builder.Services.AddScoped<HttpClient>();
 builder.Services.AddScoped<IMemberRepository, MemberRepository>();
 builder.Services.AddScoped<AnnouncementService>();
+
+
+
 builder.Services.AddControllers().AddJsonOptions(option =>
 {
     option.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
 });
 
 builder.Services.AddDbContextPool<DatabaseContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("ConnString")));
+ options.UseNpgsql(builder.Configuration.GetConnectionString("ConnString"))
+);
 
 builder.Services.AddRateLimiter((option) =>
 {
