@@ -1,6 +1,6 @@
 # continue integration for the message producer 
 
-name: CI for JobOS
+name: CI for ChurcOS
 
 on:
   workflow_dispatch
