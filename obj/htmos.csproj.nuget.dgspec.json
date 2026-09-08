@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\user\\Desktop\\Projects\\htmos\\htmos.csproj": {}
+    "c:\\Users\\user\\Desktop\\Projects\\htmos\\htmos.csproj": {}
   },
   "projects": {
-    "C:\\Users\\user\\Desktop\\Projects\\htmos\\htmos.csproj": {
+    "c:\\Users\\user\\Desktop\\Projects\\htmos\\htmos.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\user\\Desktop\\Projects\\htmos\\htmos.csproj",
+        "projectUniqueName": "c:\\Users\\user\\Desktop\\Projects\\htmos\\htmos.csproj",
         "projectName": "htmos",
-        "projectPath": "C:\\Users\\user\\Desktop\\Projects\\htmos\\htmos.csproj",
+        "projectPath": "c:\\Users\\user\\Desktop\\Projects\\htmos\\htmos.csproj",
         "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\user\\Desktop\\Projects\\htmos\\obj\\",
+        "outputPath": "c:\\Users\\user\\Desktop\\Projects\\htmos\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config"
