@@ -33,8 +33,6 @@ builder.Services.AddControllers().AddJsonOptions(option =>
 
 string ConnString = builder.Configuration.GetValue<string>("Postgre:ConnString")!;
 
-
-
 builder.Services.AddDbContextPool<DatabaseContext>(options => options.UseNpgsql(ConnString));
 
 builder.Services.AddRateLimiter((option) =>
