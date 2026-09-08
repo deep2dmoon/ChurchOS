@@ -31,11 +31,11 @@ builder.Services.AddControllers().AddJsonOptions(option =>
     option.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
 });
 
-builder.Services.AddDbContextPool<DatabaseContext>(options =>
+string ConnString = builder.Configuration.GetValue<string>("ConnString")!;
 
- options.UseNpgsql(builder.Configuration.GetConnectionString("ConnString"))
-);
+Console.WriteLine(ConnString);
 
+builder.Services.AddDbContextPool<DatabaseContext>(options => options.UseNpgsql(ConnString));
 
 builder.Services.AddRateLimiter((option) =>
 {
