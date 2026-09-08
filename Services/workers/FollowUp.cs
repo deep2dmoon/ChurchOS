@@ -41,6 +41,7 @@ public class FollowUp(IServiceScopeFactory serviceScopeFactory) : BackgroundServ
                 else
                 {
                     Console.WriteLine($"No new first timer yet :> UTC now {DateTime.UtcNow}", stoppingToken);
+                    await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
                 }
             }
         }

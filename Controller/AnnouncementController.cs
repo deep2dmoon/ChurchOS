@@ -16,4 +16,7 @@ public class AnnouncementController(AnnouncementService announcementService) : C
         BoolResult result = await announcementService.BroadcastAllAsync(announcement.Message);
         return Ok(result);
     }
+
+
+
 }
