@@ -31,11 +31,11 @@ builder.Services.AddControllers().AddJsonOptions(option =>
     option.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
 });
 
-string ConnString = builder.Configuration.GetValue<string>("ConnString")!;
+string ConnString = builder.Configuration.GetValue<string>("Postgre:ConnString")!;
 
-Console.WriteLine(ConnString);
 
-builder.Services.AddDbContextPool<DatabaseContext>(options => options.UseNpgsql(ConnString));
+
+builder.Services.AddDbContextPool<DatabaseContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("ConnString")));
 
 builder.Services.AddRateLimiter((option) =>
 {
@@ -82,6 +82,8 @@ builder.Services.AddAuthorizationBuilder()
 
 
 var app = builder.Build();
+
+Console.WriteLine(ConnString);
 // use registered services
 app.ContextMigrator();
 app.UseAuthentication();
