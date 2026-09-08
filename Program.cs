@@ -20,6 +20,9 @@ builder.Services.AddScoped<SmsService>();
 builder.Services.AddScoped<HttpClient>();
 builder.Services.AddScoped<IMemberRepository, MemberRepository>();
 builder.Services.AddScoped<AnnouncementService>();
+builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+builder.Services.AddScoped<AppointmentService>();
+
 
 
 
@@ -29,6 +32,7 @@ builder.Services.AddControllers().AddJsonOptions(option =>
 });
 
 builder.Services.AddDbContextPool<DatabaseContext>(options =>
+
  options.UseNpgsql(builder.Configuration.GetValue<string>("Postgre:ConnString"))
 );
 
@@ -50,6 +54,7 @@ builder.Services.AddRateLimiter((option) =>
         return RateLimitPartition.GetFixedWindowLimiter(ctx.Connection.RemoteIpAddress, (_) => new FixedWindowRateLimiterOptions
         {
             PermitLimit = 5,
+
             Window = TimeSpan.FromSeconds(60),
             QueueProcessingOrder = QueueProcessingOrder.OldestFirst
         });

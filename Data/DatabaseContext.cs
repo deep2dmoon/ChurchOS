@@ -15,6 +15,7 @@ public class DatabaseContext(DbContextOptions<DatabaseContext> options) : DbCont
     public DbSet<BranchAdmin> BranchAdmins => Set<BranchAdmin>();
     public DbSet<Member> Members => Set<Member>();
     public DbSet<Worker> Workers => Set<Worker>();
+    public DbSet<Appointment> Appointments => Set<Appointment>();
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
 
@@ -30,6 +31,7 @@ public class DatabaseContext(DbContextOptions<DatabaseContext> options) : DbCont
             ID = 1,
             Password = "pass-01",
         });
+        modelBuilder.Entity<BranchAdmin>().HasData(new BranchAdmin { BranchID = 1, UserID = 1 });
 
         modelBuilder.Entity<Role>().HasData(new Role { ID = 1, Name = "Admin" }, new Role { ID = 2, Name = "BranchAdmin" }, new Role { ID = 3, Name = "Member" });
         modelBuilder.Entity<Permission>().HasData(new Permission { ID = 1, Name = "Read" }, new Permission { ID = 2, Name = "Write" }, new Permission { ID = 3, Name = "Branch.Write" });

@@ -63,7 +63,12 @@
 
 - POST /api/branches/department/create => Creation of department unit [Accessible to all Admins]
 
-- POST api/branches/department/onboard/worker => Mapping of members to work department units [Accessible to all Admins]
+- POST /api/branches/department/onboard/worker => Mapping of members to work department units [Accessible to all Admins]
 
-- POST api/announcement/announce => Broadcast church prgrams announcements across every branch members [Accessible only to super admins]
+- POST /api/announcement/announce => Broadcast church prgrams announcements across every branch members [Accessible only to super admins]
+
+- GET  /api/appointments/all => Read Church branch based appointments [Accessible to Branch Admins]
+
+- POST /api/appointments/booking => To create appointment for every outsiders and and church members [Avalable to every one]
+
 
