@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -7,7 +9,7 @@
 namespace htmos.data.migrations
 {
     /// <inheritdoc />
-    public partial class SqlInitialCreate : Migration
+    public partial class PostgreMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,9 +18,9 @@ namespace htmos.data.migrations
                 name: "Branches",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    ID = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -29,9 +31,9 @@ namespace htmos.data.migrations
                 name: "Permissions",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    ID = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -42,9 +44,9 @@ namespace htmos.data.migrations
                 name: "Roles",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    ID = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -52,14 +54,35 @@ namespace htmos.data.migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Appointments",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Appointee = table.Column<string>(type: "text", nullable: false),
+                    BranchID = table.Column<int>(type: "integer", nullable: false),
+                    EntryTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Appointments", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Appointments_Branches_BranchID",
+                        column: x => x.BranchID,
+                        principalTable: "Branches",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Departments",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Leader = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BranchID = table.Column<int>(type: "int", nullable: true)
+                    ID = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Leader = table.Column<string>(type: "text", nullable: false),
+                    BranchID = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -75,8 +98,8 @@ namespace htmos.data.migrations
                 name: "RolePermissions",
                 columns: table => new
                 {
-                    RoleID = table.Column<int>(type: "int", nullable: false),
-                    PermissionID = table.Column<int>(type: "int", nullable: false)
+                    RoleID = table.Column<int>(type: "integer", nullable: false),
+                    PermissionID = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -99,13 +122,13 @@ namespace htmos.data.migrations
                 name: "Users",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RoleID = table.Column<int>(type: "int", nullable: false),
-                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    ID = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    Password = table.Column<string>(type: "text", nullable: false),
+                    RoleID = table.Column<int>(type: "integer", nullable: false),
+                    Phone = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -122,10 +145,10 @@ namespace htmos.data.migrations
                 name: "Workers",
                 columns: table => new
                 {
-                    DepartmentID = table.Column<int>(type: "int", nullable: false),
-                    MemberID = table.Column<int>(type: "int", nullable: false),
-                    ID = table.Column<int>(type: "int", nullable: false),
-                    BranchID = table.Column<int>(type: "int", nullable: true)
+                    DepartmentID = table.Column<int>(type: "integer", nullable: false),
+                    MemberID = table.Column<int>(type: "integer", nullable: false),
+                    ID = table.Column<int>(type: "integer", nullable: false),
+                    BranchID = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -147,10 +170,10 @@ namespace htmos.data.migrations
                 name: "BranchAdmins",
                 columns: table => new
                 {
-                    UserID = table.Column<int>(type: "int", nullable: false),
-                    BranchID = table.Column<int>(type: "int", nullable: false),
-                    ID = table.Column<int>(type: "int", nullable: false),
-                    BranchID1 = table.Column<int>(type: "int", nullable: true)
+                    UserID = table.Column<int>(type: "integer", nullable: false),
+                    BranchID = table.Column<int>(type: "integer", nullable: false),
+                    ID = table.Column<int>(type: "integer", nullable: false),
+                    BranchID1 = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -176,15 +199,15 @@ namespace htmos.data.migrations
                 name: "Members",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BranchID = table.Column<int>(type: "int", nullable: false),
-                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsFirstTimer = table.Column<bool>(type: "bit", nullable: false),
-                    BranchID1 = table.Column<int>(type: "int", nullable: true),
-                    WorkerDepartmentID = table.Column<int>(type: "int", nullable: true),
-                    WorkerMemberID = table.Column<int>(type: "int", nullable: true)
+                    ID = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    BranchID = table.Column<int>(type: "integer", nullable: false),
+                    Phone = table.Column<string>(type: "text", nullable: false),
+                    IsFirstTimer = table.Column<bool>(type: "boolean", nullable: false),
+                    BranchID1 = table.Column<int>(type: "integer", nullable: true),
+                    WorkerDepartmentID = table.Column<int>(type: "integer", nullable: true),
+                    WorkerMemberID = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -249,12 +272,21 @@ namespace htmos.data.migrations
                 columns: new[] { "ID", "Email", "Name", "Password", "Phone", "RoleID" },
                 values: new object[] { 1, "htm@hq.go", "Harvest Tabernacle Ministry", "pass-01", "", 1 });
 
+            migrationBuilder.InsertData(
+                table: "BranchAdmins",
+                columns: new[] { "BranchID", "UserID", "BranchID1", "ID" },
+                values: new object[] { 1, 1, null, 0 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Appointments_BranchID",
+                table: "Appointments",
+                column: "BranchID");
+
             migrationBuilder.CreateIndex(
                 name: "IX_BranchAdmins_BranchID1",
                 table: "BranchAdmins",
                 column: "BranchID1",
-                unique: true,
-                filter: "[BranchID1] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_BranchAdmins_UserID",
@@ -300,6 +332,9 @@ namespace htmos.data.migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Appointments");
+
             migrationBuilder.DropTable(
                 name: "BranchAdmins");
 

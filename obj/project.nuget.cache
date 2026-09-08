@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "dT/YQa3HU64=",
+  "dgSpecHash": "1Q7FAn+G2MU=",
   "success": true,
-  "projectFilePath": "c:\\Users\\user\\Desktop\\Projects\\htmos\\htmos.csproj",
+  "projectFilePath": "C:\\Users\\user\\Desktop\\Projects\\htmos\\htmos.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\user\\.nuget\\packages\\azure.core\\1.47.1\\azure.core.1.47.1.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\azure.identity\\1.14.2\\azure.identity.1.14.2.nupkg.sha512",
@@ -54,24 +54,5 @@
     "C:\\Users\\user\\.nuget\\packages\\system.security.cryptography.pkcs\\9.0.4\\system.security.cryptography.pkcs.9.0.4.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\system.security.cryptography.protecteddata\\9.0.4\\system.security.cryptography.protecteddata.9.0.4.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "message": "Problem reading the cache file c:\\Users\\user\\Desktop\\Projects\\htmos\\obj\\project.nuget.cache : '<' is an invalid start of a property name. Expected a '\"'. Path: $ | LineNumber: 2 | BytePositionInLine: 0.",
-      "projectPath": "c:\\Users\\user\\Desktop\\Projects\\htmos\\htmos.csproj",
-      "warningLevel": 1,
-      "filePath": "c:\\Users\\user\\Desktop\\Projects\\htmos\\htmos.csproj",
-      "targetGraphs": []
-    },
-    {
-      "code": "NU1900",
-      "level": "Warning",
-      "message": "Error occurred while getting package vulnerability data: Unable to load the service index for source https://api.nuget.org/v3/index.json.",
-      "projectPath": "c:\\Users\\user\\Desktop\\Projects\\htmos\\htmos.csproj",
-      "warningLevel": 1,
-      "filePath": "c:\\Users\\user\\Desktop\\Projects\\htmos\\htmos.csproj",
-      "targetGraphs": []
-    }
-  ]
+  "logs": []
 }
